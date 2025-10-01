@@ -23,3 +23,7 @@ ACCELERATION = 35.0
 
 [node name="DeadContainer" parent="." instance=ExtResource("3_g1dw6")]
 MAX_SPEED = 250.0
+
+[node name="ManaDrainTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ManaDrainTimer" to="." method="_on_mana_drain_timer_timeout"]
