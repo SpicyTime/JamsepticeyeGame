@@ -1,0 +1,36 @@
+# Godot-specific
+.import/
+export.cfg
+export_presets.cfg
+project_metadata.cfg
+
+# Godot 4 cache and UID files
+.godot/
+*.uid
+
+# Config files
+*.cfg
+*.ini
+*.config
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE/editor-specific
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary / backup files
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Build / export folders
+/bin/
+build/
+exports/
