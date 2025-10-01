@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c10axf775rnve"]
+
+[ext_resource type="Script" uid="uid://cmax126ljmcfj" path="res://player/containers/living_container.gd" id="1_ywk06"]
+
+[node name="LivingContainer" type="Node"]
+script = ExtResource("1_ywk06")

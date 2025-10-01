@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://csve41exg116t"]
+
+[ext_resource type="Script" uid="uid://ddam17to68jgo" path="res://player/containers/dead_container.gd" id="1_w6nuj"]
+
+[node name="DeadContainer" type="Node"]
+script = ExtResource("1_w6nuj")
