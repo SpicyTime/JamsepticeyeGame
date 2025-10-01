@@ -34,24 +34,33 @@ func _physics_process(delta: float) -> void:
 
 
 func swap_living_status(living: bool) -> void:
-	if living:
-		if resurrection_count < max_resurrection_count:
-			print("Swapping to Living")
-			active_container = $LivingContainer
-			resurrection_count += 1
-			$CollisionShape2D.disabled = false
-			# Deletes the dead body
-			var main_node = get_tree().root.get_node("Main")
-			main_node.get_node("Game").get_node("DeadBodySprite").queue_free()
-			
-			mana_drain_timer.stop()
-	else:
+	if not living and active_container != $DeadContainer:
+		
 		active_container = $DeadContainer
 		$CollisionShape2D.disabled = true
 		current_mana = max_mana
 		print("Swapping to Dead")
 		mana_drain_timer.start()
 		spawn_body()
+		if resurrection_count == max_resurrection_count:
+			SignalManager.player_fully_dead.emit()
+			get_tree().reload_current_scene()
+		else:
+			return
+	if resurrection_count >= max_resurrection_count :
+		return
+		
+	if living and active_container != $LivingContainer:
+		print("Swapping to Living")
+		active_container = $LivingContainer
+		resurrection_count += 1
+		$CollisionShape2D.disabled = false
+		# Deletes the dead body
+		var main_node = get_tree().root.get_node("Main")
+		main_node.get_node("Game").get_node("DeadBodySprite").queue_free()
+		
+		mana_drain_timer.stop()
+			
 
 
 func spawn_body() -> void: 
@@ -69,3 +78,5 @@ func spawn_body() -> void:
 func _on_mana_drain_timer_timeout() -> void:
 	current_mana -= max_mana * mana_drain
 	print(current_mana)
+	if current_mana <= 1:
+		pass

@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://btd7tfi2uo2wb"]
+[gd_scene load_steps=3 format=3 uid="uid://btd7tfi2uo2wb"]
 
 [ext_resource type="PackedScene" uid="uid://jqbvb8p7iwbh" path="res://player/player.tscn" id="1_l1rk1"]
+[ext_resource type="PackedScene" uid="uid://dtht7togmwgdk" path="res://traps/spike_trap.tscn" id="2_vasa2"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visibility_layer = 3
 position = Vector2(0, -1)
 
 [node name="Player" parent="." instance=ExtResource("1_l1rk1")]
+
+[node name="Traps" type="Node" parent="."]
+
+[node name="SpikeTrap" parent="Traps" instance=ExtResource("2_vasa2")]
+position = Vector2(-276, 111)

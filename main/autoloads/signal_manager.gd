@@ -1,1 +1,3 @@
 extends Node
+signal spirit_search
+signal player_fully_dead

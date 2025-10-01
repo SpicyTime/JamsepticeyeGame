@@ -1,21 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://jqbvb8p7iwbh"]
+[gd_scene load_steps=8 format=3 uid="uid://jqbvb8p7iwbh"]
 
 [ext_resource type="Script" uid="uid://blve0ctrq7eh3" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://d0v23pnxx1ix2" path="res://hithurtsystem/hurtbox.tscn" id="2_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://c10axf775rnve" path="res://player/containers/living_container.tscn" id="2_rkbax"]
 [ext_resource type="PackedScene" uid="uid://csve41exg116t" path="res://player/containers/dead_container.tscn" id="3_g1dw6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oul6g"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjkh3"]
+size = Vector2(124, 122)
+
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_rkbax")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
+texture = ExtResource("2_g1dw6")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_oul6g")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_g1dw6")
+[node name="Hurtbox" parent="." instance=ExtResource("2_qjkh3")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_qjkh3")
 
 [node name="LivingContainer" parent="." instance=ExtResource("2_rkbax")]
 FRICTION = 20.0
