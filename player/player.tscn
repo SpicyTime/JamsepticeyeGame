@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://jqbvb8p7iwbh"]
+[gd_scene load_steps=7 format=3 uid="uid://jqbvb8p7iwbh"]
 
 [ext_resource type="Script" uid="uid://blve0ctrq7eh3" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://d0v23pnxx1ix2" path="res://hithurtsystem/hurtbox.tscn" id="2_qjkh3"]
-[ext_resource type="PackedScene" uid="uid://c10axf775rnve" path="res://player/containers/living_container.tscn" id="2_rkbax"]
-[ext_resource type="PackedScene" uid="uid://csve41exg116t" path="res://player/containers/dead_container.tscn" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://dwot1mskget5u" path="res://player/living_state.gd" id="4_qjkh3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oul6g"]
 
@@ -16,7 +15,6 @@ motion_mode = 1
 script = ExtResource("1_rkbax")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, 0)
 texture = ExtResource("2_g1dw6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -27,13 +25,9 @@ shape = SubResource("RectangleShape2D_oul6g")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_qjkh3")
 
-[node name="LivingContainer" parent="." instance=ExtResource("2_rkbax")]
-FRICTION = 20.0
-ACCELERATION = 35.0
-
-[node name="DeadContainer" parent="." instance=ExtResource("3_g1dw6")]
-MAX_SPEED = 250.0
-
 [node name="ManaDrainTimer" type="Timer" parent="."]
+
+[node name="LivingState" type="Node" parent="."]
+script = ExtResource("4_qjkh3")
 
 [connection signal="timeout" from="ManaDrainTimer" to="." method="_on_mana_drain_timer_timeout"]
