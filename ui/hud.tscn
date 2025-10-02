@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvgt6m3tjswig"]
+
+[ext_resource type="Script" uid="uid://to1l3ios7ilc" path="res://ui/hud.gd" id="1_276te"]
+[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="1_rbyyf"]
+[ext_resource type="Texture2D" uid="uid://cgdk8blma7gop" path="res://game/ProgressHolder.png" id="3_7ihmi"]
+[ext_resource type="Texture2D" uid="uid://diesjuq6succ8" path="res://game/Progress.png" id="4_en2x2"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_276te")
+
+[node name="Resurrections" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 392.0
+offset_bottom = 128.0
+scale = Vector2(0.25, 0.25)
+
+[node name="ResurrectStone1" type="TextureRect" parent="Resurrections"]
+layout_mode = 2
+texture = ExtResource("1_rbyyf")
+
+[node name="ResurrectionStone2" type="TextureRect" parent="Resurrections"]
+layout_mode = 2
+texture = ExtResource("1_rbyyf")
+
+[node name="ResurrectionStone3" type="TextureRect" parent="Resurrections"]
+layout_mode = 2
+texture = ExtResource("1_rbyyf")
+
+[node name="SpiritManaBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_top = 33.0
+offset_right = 20.0
+offset_bottom = 69.0
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("3_7ihmi")
+texture_progress = ExtResource("4_en2x2")
+texture_progress_offset = Vector2(2, 2)

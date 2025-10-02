@@ -5,24 +5,26 @@ enum UiMenuType{
 	
 }
 var ui_menus: Dictionary[String, Control] = {}
-## Preload overlays ##
 
+## Preload overlays ##
 enum UiOverlayType{
-	
+	HUD
 }
 var ui_overlays: Dictionary[String, Control] = {}
 
 var active_overlays: Array[Control] = []
 var active_menu: Control = null
-func set_up_ui(canvas_item: CanvasItem) -> void:
-	var overlays: Control = canvas_item.get_child(0)
-	var menus: Control = canvas_item.get_child(1)
+func set_up_ui(canvas_layer: CanvasLayer) -> void:
+	var overlays: Control = canvas_layer.get_child(0)
+	var menus: Control = canvas_layer.get_child(1)
 	# Sets up menus
 	for menu in menus.get_children():
 		ui_menus.set(menu.name, menu)
 	# Sets up overlays
 	for overlay in overlays.get_children():
 		ui_overlays.set(overlay.name, overlay)
+		print(overlay.name)
+	show_overlay("Hud")
 
 
 func show_overlay(overlay_key: String) -> void:

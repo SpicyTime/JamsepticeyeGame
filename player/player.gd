@@ -6,8 +6,8 @@ var facing_vector: Vector2 = Vector2(1, -1)
 var movement_vector: Vector2 = Vector2.ZERO
 var resurrection_count: int = 0
 var max_resurrection_count: int = 3
-var max_mana: float = 100.0
-var current_mana: float = max_mana
+var max_mana: int = 100
+var current_mana: int = max_mana
 var mana_drain: float = 0.01
 var body_position: Vector2 = Vector2.ZERO
 var prev_animation_path: String = ""
@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				swap_living_status(true)
 		if Input.is_action_just_pressed("activate_ability"):
-			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"))
+			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"), self)
 
 
 func _physics_process(delta: float) -> void:
@@ -76,6 +76,11 @@ func _handle_animations() -> void:
 	$AnimatedSprite2D.play(animation_path)
 
 
+func consume_mana(amount: int):
+	current_mana -= amount
+	SignalManager.player_mana_changed.emit(current_mana)
+
+
 func resurrect() -> void:
 	print("Resurrecting")
 	active_state = $LivingState
@@ -92,6 +97,7 @@ func resurrect() -> void:
 	# Invincibility
 	$Hurtbox.set_collision_mask_value(2, false)
 	$InvincibilityTimer.start()
+	SignalManager.player_resurrect.emit()
 
 
 func die() -> void:
@@ -112,6 +118,7 @@ func swap_living_status(living: bool) -> void:
 	# Handles life
 	elif living and active_state != $LivingState and resurrection_count <  max_resurrection_count :
 		resurrect()
+	SignalManager.swapped_live_mode.emit(living)
 
 
 func spawn_body() -> void: 
@@ -127,7 +134,8 @@ func spawn_body() -> void:
 
 
 func _on_mana_drain_timer_timeout() -> void:
-	current_mana -= max_mana * mana_drain
+	var passive_mana_removal: int =  int(max_mana * mana_drain)
+	consume_mana(passive_mana_removal)
 	if current_mana <= 1:
 		swap_living_status(true)
 
