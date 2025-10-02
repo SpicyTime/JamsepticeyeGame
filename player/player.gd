@@ -1,16 +1,21 @@
 extends CharacterBody2D
+class_name Player
 var active_state: Node = null
 var input_vector: Vector2 = Vector2.ZERO
+var facing_vector: Vector2 = Vector2(1, -1)
+var movement_vector: Vector2 = Vector2.ZERO
 var resurrection_count: int = 0
 var max_resurrection_count: int = 3
 var max_mana: float = 100.0
 var current_mana: float = max_mana
 var mana_drain: float = 0.01
 var body_position: Vector2 = Vector2.ZERO
+var prev_animation_path: String = ""
 @onready var mana_drain_timer: Timer = $ManaDrainTimer
 
 func _ready() -> void:
 	active_state = $LivingState
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -19,7 +24,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				swap_living_status(false)
 			else:
 				swap_living_status(true)
- 
+		if Input.is_action_just_pressed("activate_ability"):
+			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"))
 
 func _physics_process(delta: float) -> void:
 	# Handles movement input
@@ -29,33 +35,73 @@ func _physics_process(delta: float) -> void:
 		velocity = lerp(velocity, input_vector.normalized() * active_state.MAX_SPEED, delta * active_state.ACCELERATION)
 	else:
 		velocity = lerp(velocity, input_vector.normalized() * active_state.MAX_SPEED, delta * active_state.FRICTION)
+	
+	_handle_animations()
 	move_and_slide()
+
+
+func _handle_animations() -> void:
+	# Only changes the facing direction if the input vector has changed and is not (0, 0)
+	if facing_vector != input_vector and input_vector != Vector2.ZERO:
+		facing_vector = input_vector
+	var animation_path: String = ""
+	# Plays it from the spirit sheet if the player is dead
+	if active_state != $LivingState:
+		animation_path = "spirit_"
+	# Checks for diagnal facing
+	if facing_vector.x != 0 and facing_vector.y != 0:
+		animation_path += "diag_"
+	# Front and Back
+	if sign(facing_vector.y) == -1:
+		animation_path += "back_"
+	elif sign(facing_vector.y) == 1:
+		animation_path += "front_"
+	# Side
+	if facing_vector.x != 0 and not "diag" in animation_path:
+		animation_path += "side_"
+	# Walk and Idle
+	if input_vector != Vector2.ZERO and not "spirit" in animation_path :
+		animation_path += "walk"
+	elif input_vector == Vector2.ZERO and not "spirit" in animation_path:
+		animation_path += "idle"
+	# Removes the last _ from the path if it is in spirit mode
+	if "spirit" in animation_path:
+		animation_path = animation_path.substr(0, animation_path.length() - 1)
+	# Flipping sprite
+	if facing_vector.x == -1:
+		$AnimatedSprite2D.flip_h = false
+	elif facing_vector.x == 1:
+		$AnimatedSprite2D.flip_h = true
+	$AnimatedSprite2D.play(animation_path)
 
 
 func resurrect() -> void:
 	print("Resurrecting")
 	active_state = $LivingState
 	resurrection_count += 1
-	$CollisionShape2D.disabled = false
 	# Deletes the dead body
 	var main_node = get_tree().root.get_node("Main")
-	main_node.get_node("Game").get_node("DeadBodySprite").queue_free()
-	
+	var body_sprite: Sprite2D = main_node.get_node("Game").get_node("DeadBodySprite")
+	if body_sprite:
+		body_sprite.queue_free()
+		
 	mana_drain_timer.stop()
-	
 	position = body_position
-	
 	velocity = Vector2.ZERO  
+	# Invincibility
+	$Hurtbox.set_collision_mask_value(2, false)
+	$InvincibilityTimer.start()
+
 
 func die() -> void:
+	print("Dead")
 	active_state = $DeadState
-	$CollisionShape2D.disabled = true
 	current_mana = max_mana
 	mana_drain_timer.start()
 	spawn_body()
 	if resurrection_count == max_resurrection_count:
 		SignalManager.player_fully_dead.emit()
-		get_tree().reload_current_scene()
+		get_tree().call_deferred("reload_current_scene")
 
 
 func swap_living_status(living: bool) -> void:
@@ -81,6 +127,9 @@ func spawn_body() -> void:
 
 func _on_mana_drain_timer_timeout() -> void:
 	current_mana -= max_mana * mana_drain
-	print(current_mana)
 	if current_mana <= 1:
 		swap_living_status(true)
+
+
+func _on_invincibility_timer_timeout() -> void:
+	$Hurtbox.set_collision_mask_value(2, true)

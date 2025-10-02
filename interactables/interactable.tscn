@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://eq4m86yrv42f" path="res://interactables/interactable.gd" id="1_kdhm5"]
 
-[node name="Interactable" type="Node"]
+[node name="Interactable" type="Node2D"]
 script = ExtResource("1_kdhm5")

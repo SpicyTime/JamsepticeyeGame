@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgc5nberyiet0"]
+
+[ext_resource type="Script" uid="uid://fke4nu357gcm" path="res://interactables/traps/spike_trap.gd" id="1_xndjj"]
+[ext_resource type="PackedScene" uid="uid://cj8n6bo6mt1bq" path="res://hithurtsystem/hitbox.tscn" id="2_pyoux"]
+[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_xndjj"]
+[ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="3_xndjj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ga6ch"]
+size = Vector2(126, 118)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aj78h"]
+size = Vector2(88, 88)
+
+[node name="SpikeTrap" type="Node2D"]
+script = ExtResource("1_xndjj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_xndjj")
+
+[node name="Interactable" parent="." instance=ExtResource("3_xndjj")]
+
+[node name="Area2D" type="Area2D" parent="Interactable"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/Area2D"]
+shape = SubResource("RectangleShape2D_ga6ch")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_pyoux")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_aj78h")
