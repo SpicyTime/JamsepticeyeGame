@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmg45a0nmnduf"]
+
+[ext_resource type="PackedScene" uid="uid://bvbvhue2xvy1t" path="res://level_system/base_level.tscn" id="1_8to65"]
+[ext_resource type="PackedScene" uid="uid://dgc5nberyiet0" path="res://interactables/traps/spike_trap.tscn" id="2_1clyw"]
+
+[node name="Level1" instance=ExtResource("1_8to65")]
+
+[node name="SpikeTrap" parent="Traps" index="0" instance=ExtResource("2_1clyw")]
+position = Vector2(-18, -8)

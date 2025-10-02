@@ -27,6 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("activate_ability"):
 			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"))
 
+
 func _physics_process(delta: float) -> void:
 	# Handles movement input
 	input_vector.x = Input.get_axis("move_left", "move_right")

@@ -515,7 +515,6 @@ radius = 6.0
 height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_rkbax")
 
@@ -524,7 +523,6 @@ sprite_frames = SubResource("SpriteFrames_or4qq")
 animation = &"diag_back_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_hggc2")
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_qjkh3")]

@@ -12,6 +12,7 @@ size = Vector2(126, 118)
 size = Vector2(88, 88)
 
 [node name="SpikeTrap" type="Node2D"]
+scale = Vector2(0.125, 0.125)
 script = ExtResource("1_xndjj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
