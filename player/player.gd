@@ -26,7 +26,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				swap_living_status(true)
 		if Input.is_action_just_pressed("activate_ability"):
 			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"), self)
-
+		
+			
 
 func _physics_process(delta: float) -> void:
 	# Handles movement input
