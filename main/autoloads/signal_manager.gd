@@ -9,3 +9,6 @@ signal player_resurrect
 signal mana_consumed 
 # Level System
 signal level_complete
+signal alarm_item_broken(value: int)
+signal alarm_triggered
+signal soul_battery_filled

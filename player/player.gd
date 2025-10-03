@@ -1,5 +1,7 @@
 extends CharacterBody2D
 class_name Player
+var player_burial_site: Texture2D = preload("res://player/textures/BurialSite.png")  
+
 var active_state: Node = null
 var input_vector: Vector2 = Vector2.ZERO
 var facing_vector: Vector2 = Vector2(1, -1)
@@ -22,9 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("kill_self"): 
 			if active_state == $LivingState:
 				swap_living_status(false)
-			else:
-				swap_living_status(true)
-		if Input.is_action_just_pressed("activate_ability"):
+		if Input.is_action_just_pressed("interact"):
 			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"), self)
 		
 			
@@ -77,6 +77,10 @@ func _handle_animations() -> void:
 	$AnimatedSprite2D.play(animation_path)
 
 
+func is_alive() -> bool:
+	return active_state == $LivingState
+
+
 func consume_mana(amount: int):
 	current_mana -= amount
 	SignalManager.player_mana_changed.emit(current_mana)
@@ -86,16 +90,10 @@ func resurrect() -> void:
 	print("Resurrecting")
 	active_state = $LivingState
 	resurrection_count += 1
-	# Deletes the dead body
-	var main_node = get_tree().root.get_node("Main")
-	var body_sprite: Sprite2D = main_node.get_node("Game").get_node("DeadBodySprite")
-	if body_sprite:
-		body_sprite.queue_free()
-		
 	mana_drain_timer.stop()
-	position = body_position
+	#position = body_position
 	velocity = Vector2.ZERO  
-	# Invincibility
+	 #Invincibility;
 	$Hurtbox.set_collision_mask_value(2, false)
 	$InvincibilityTimer.start()
 	SignalManager.player_resurrect.emit()
@@ -106,7 +104,7 @@ func die() -> void:
 	active_state = $DeadState
 	current_mana = max_mana
 	mana_drain_timer.start()
-	spawn_body()
+	#spawn_body()
 	if resurrection_count == max_resurrection_count:
 		SignalManager.player_fully_dead.emit()
 		get_tree().call_deferred("reload_current_scene")
@@ -116,19 +114,25 @@ func swap_living_status(living: bool) -> void:
 	# Handles death
 	if not living and active_state != $DeadState:
 		die()
+		set_collision_mask_value(2, true)
+		set_collision_mask_value(1, false)
 	# Handles life
 	elif living and active_state != $LivingState and resurrection_count <  max_resurrection_count :
 		resurrect()
+		set_collision_mask_value(2, false)
+		set_collision_mask_value(1, true)
+		
 	SignalManager.swapped_live_mode.emit(living)
 
 
 func spawn_body() -> void: 
 	var dead_body_sprite: Sprite2D = Sprite2D.new()
 	# Sets up the sprite
-	dead_body_sprite.texture = preload("res://icon.svg")  
+	dead_body_sprite.texture = player_burial_site
 	dead_body_sprite.position = position
 	body_position = position
 	dead_body_sprite.name = "DeadBodySprite"
+	dead_body_sprite.z_index = 5
 	# Adds to tree
 	var main_node = get_tree().root.get_node("Main")
 	main_node.get_node("Game").add_child(dead_body_sprite)
@@ -138,7 +142,7 @@ func _on_mana_drain_timer_timeout() -> void:
 	var passive_mana_removal: int =  int(max_mana * mana_drain)
 	consume_mana(passive_mana_removal)
 	if current_mana <= 1:
-		swap_living_status(true)
+		SignalManager.player_fully_dead.emit()
 
 
 func _on_invincibility_timer_timeout() -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgdk8blma7gop"
-path="res://.godot/imported/ProgressHolder.png-6ba5dd97c11b3f1b7280865884b28c54.ctex"
+uid="uid://d1wcoaqmc7bcm"
+path="res://.godot/imported/OtherResurrectionStone.png-e323aaf84130c1056c1f33dd4ba56808.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/ProgressHolder.png"
-dest_files=["res://.godot/imported/ProgressHolder.png-6ba5dd97c11b3f1b7280865884b28c54.ctex"]
+source_file="res://ui/textures/OtherResurrectionStone.png"
+dest_files=["res://.godot/imported/OtherResurrectionStone.png-e323aaf84130c1056c1f33dd4ba56808.ctex"]
 
 [params]
 

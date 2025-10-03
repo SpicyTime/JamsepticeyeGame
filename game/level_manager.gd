@@ -9,6 +9,8 @@ var levels: Array[Level] = [
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_0):
 		reset_level()
+
+
 func _ready() -> void:
 	SignalManager.level_complete.connect(func ():
 		current_level_idx += 1

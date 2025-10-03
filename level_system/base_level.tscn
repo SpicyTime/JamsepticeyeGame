@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvbvhue2xvy1t"]
+[gd_scene load_steps=15 format=3 uid="uid://bvbvhue2xvy1t"]
 
 [ext_resource type="Texture2D" uid="uid://bo5es1vwialhq" path="res://level_system/textures/FloorTiles.png" id="1_1d1fa"]
 [ext_resource type="Script" uid="uid://c2wysfqfsuarw" path="res://level_system/level.gd" id="1_4sx5k"]
 [ext_resource type="PackedScene" uid="uid://jqbvb8p7iwbh" path="res://player/player.tscn" id="1_6h4uu"]
 [ext_resource type="PackedScene" uid="uid://tyykhl5jkmp4" path="res://level_system/exit_door.tscn" id="3_1d1fa"]
 [ext_resource type="Texture2D" uid="uid://ddsv4vcvjumry" path="res://level_system/textures/WallTile.png" id="3_cn4wh"]
+[ext_resource type="PackedScene" uid="uid://dnby6yl4lssjn" path="res://level_system/respawn_station.tscn" id="6_inehf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1d1fa"]
 texture = ExtResource("1_1d1fa")
@@ -42,6 +43,18 @@ tile_size = Vector2i(20, 20)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_inehf")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn4wh"]
+size = Vector2(320, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_inehf"]
+size = Vector2(320, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_reay7"]
+size = Vector2(5, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8svdi"]
+size = Vector2(5, 180)
+
 [node name="BaseLevel" type="Node2D"]
 script = ExtResource("1_4sx5k")
 
@@ -61,3 +74,38 @@ tile_set = SubResource("TileSet_reay7")
 position = Vector2(-2, -78)
 
 [node name="Player" parent="." instance=ExtResource("1_6h4uu")]
+
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="TopBoundary" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopBoundary"]
+position = Vector2(7, -91)
+shape = SubResource("RectangleShape2D_cn4wh")
+
+[node name="BottomBoundary" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BottomBoundary"]
+position = Vector2(7, 86)
+shape = SubResource("RectangleShape2D_inehf")
+
+[node name="LeftBoundary" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftBoundary"]
+position = Vector2(164, -3)
+shape = SubResource("RectangleShape2D_reay7")
+
+[node name="RightBoundary" type="StaticBody2D" parent="Boundaries"]
+collision_layer = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightBoundary"]
+position = Vector2(-158, 0)
+shape = SubResource("RectangleShape2D_8svdi")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="RespawnStation" parent="." instance=ExtResource("6_inehf")]
+position = Vector2(-94, -30)

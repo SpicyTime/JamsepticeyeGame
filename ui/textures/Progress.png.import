@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r2j4l14nc2ly"
-path="res://.godot/imported/ProgressHolderOver.png-adef5b22555b001434943ac364f0fb72.ctex"
+uid="uid://diesjuq6succ8"
+path="res://.godot/imported/Progress.png-2d7e8cf2060b897b2052f3ed5ec25b2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/ProgressHolderOver.png"
-dest_files=["res://.godot/imported/ProgressHolderOver.png-adef5b22555b001434943ac364f0fb72.ctex"]
+source_file="res://ui/textures/Progress.png"
+dest_files=["res://.godot/imported/Progress.png-2d7e8cf2060b897b2052f3ed5ec25b2c.ctex"]
 
 [params]
 
