@@ -1,23 +1,23 @@
 [gd_scene load_steps=6 format=3 uid="uid://tyykhl5jkmp4"]
 
 [ext_resource type="Script" uid="uid://dp51nd0xf2j5j" path="res://level_system/exit_door.gd" id="1_kst8t"]
-[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="1_q55us"]
+[ext_resource type="Texture2D" uid="uid://k1dc0frl7q2k" path="res://level_system/textures/Door.png" id="2_kst8t"]
 [ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="3_kst8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvhdd"]
-size = Vector2(130, 20)
+size = Vector2(20, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qtx7j"]
-size = Vector2(126, 13)
+size = Vector2(20, 7)
 
 [node name="ExitDoor" type="StaticBody2D"]
 script = ExtResource("1_kst8t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 0.171875)
-texture = ExtResource("1_q55us")
+texture = ExtResource("2_kst8t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_uvhdd")
 
 [node name="Interactable" parent="." instance=ExtResource("3_kst8t")]

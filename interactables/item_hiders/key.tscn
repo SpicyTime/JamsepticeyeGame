@@ -2,17 +2,15 @@
 
 [ext_resource type="Script" uid="uid://b4v8v63xj642u" path="res://interactables/item_hiders/key.gd" id="1_7qjeo"]
 [ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="1_tpqlt"]
-[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_agpk8"]
+[ext_resource type="Texture2D" uid="uid://r01cmsevngps" path="res://game/Key.png" id="2_agpk8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qjeo"]
-size = Vector2(4, 6)
+size = Vector2(12, 8)
 
 [node name="Key" type="Node2D"]
-visible = false
 script = ExtResource("1_7qjeo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.03125, 0.046875)
 texture = ExtResource("2_agpk8")
 
 [node name="Interactable" parent="." instance=ExtResource("1_tpqlt")]

@@ -1,24 +1,34 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgc5nberyiet0"]
+[gd_scene load_steps=9 format=3 uid="uid://dgc5nberyiet0"]
 
 [ext_resource type="Script" uid="uid://fke4nu357gcm" path="res://interactables/traps/spike_trap.gd" id="1_xndjj"]
 [ext_resource type="PackedScene" uid="uid://cj8n6bo6mt1bq" path="res://hithurtsystem/hitbox.tscn" id="2_pyoux"]
-[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_xndjj"]
+[ext_resource type="Texture2D" uid="uid://iew5mq1teaxi" path="res://interactables/traps/Spikes.png" id="2_xndjj"]
 [ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="3_xndjj"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj78h"]
+atlas = ExtResource("2_xndjj")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ga6ch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj78h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga6ch"]
-size = Vector2(126, 118)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aj78h"]
-size = Vector2(88, 88)
 
 [node name="SpikeTrap" type="Node2D"]
-visible = false
-scale = Vector2(0.125, 0.125)
 script = ExtResource("1_xndjj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("2_xndjj")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ga6ch")
 
 [node name="Interactable" parent="." instance=ExtResource("3_xndjj")]
 

@@ -508,7 +508,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hggc2"]
 radius = 5.0
-height = 16.0
+height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_boad6"]
 radius = 6.0
@@ -524,6 +524,7 @@ sprite_frames = SubResource("SpriteFrames_or4qq")
 animation = &"diag_back_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_hggc2")
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_qjkh3")]
@@ -538,7 +539,7 @@ shape = SubResource("CapsuleShape2D_boad6")
 [node name="LivingState" type="Node" parent="."]
 script = ExtResource("4_qjkh3")
 MAX_SPEED = 100.0
-FRICTION = 5.0
+FRICTION = 15.0
 
 [node name="DeadState" type="Node" parent="."]
 script = ExtResource("5_g6k8r")
