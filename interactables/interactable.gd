@@ -11,13 +11,11 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		get_parent().add_to_group("Current Interactables")
-		print("Interactable Entered")
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		get_parent().remove_from_group("Current Interactables")
-		print("Interactable Exited")
 
 
 func _on_interact(actor: Node2D, player: Player) -> void:

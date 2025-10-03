@@ -10,7 +10,7 @@ var max_mana: int = 100
 var current_mana: int = max_mana
 var mana_drain: float = 0.01
 var body_position: Vector2 = Vector2.ZERO
-var prev_animation_path: String = ""
+var has_key: bool = false
 @onready var mana_drain_timer: Timer = $ManaDrainTimer
 
 func _ready() -> void:

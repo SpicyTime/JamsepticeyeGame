@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://opdk7y15pi63"]
+
+[ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="1_8n51w"]
+[ext_resource type="Script" uid="uid://chgvfhur6i012" path="res://interactables/item_hiders/item_hider.gd" id="1_q5rj0"]
+[ext_resource type="Texture2D" uid="uid://dwdba0j101xbf" path="res://icon.svg" id="2_d5u82"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlnji"]
+size = Vector2(34, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d5u82"]
+size = Vector2(30, 28)
+
+[node name="ItemHider" type="StaticBody2D"]
+script = ExtResource("1_q5rj0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.265625, 0.25)
+texture = ExtResource("2_d5u82")
+
+[node name="Interactable" parent="." instance=ExtResource("1_8n51w")]
+
+[node name="Area2D" type="Area2D" parent="Interactable"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/Area2D"]
+shape = SubResource("RectangleShape2D_hlnji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d5u82")
