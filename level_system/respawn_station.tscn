@@ -1,8 +1,112 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnby6yl4lssjn"]
+[gd_scene load_steps=21 format=3 uid="uid://dnby6yl4lssjn"]
 
 [ext_resource type="Script" uid="uid://8li4pi1qvyee" path="res://level_system/respawn_station.gd" id="1_wawvr"]
 [ext_resource type="Texture2D" uid="uid://3rrp2m1ccus7" path="res://game/RespawnStation.png" id="2_1d6ej"]
+[ext_resource type="Texture2D" uid="uid://b4sqmw4hlmo3k" path="res://level_system/textures/RespawnStationResurrecting.png" id="2_rmdrm"]
 [ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="3_rmdrm"]
+[ext_resource type="Texture2D" uid="uid://6jxn8bujy6ll" path="res://level_system/textures/RespawnStationIdle.png" id="4_j2gub"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lcbe"]
+atlas = ExtResource("2_rmdrm")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgvrk"]
+atlas = ExtResource("2_rmdrm")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nxwr"]
+atlas = ExtResource("2_rmdrm")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iruw4"]
+atlas = ExtResource("2_rmdrm")
+region = Rect2(0, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hfvf"]
+atlas = ExtResource("2_rmdrm")
+region = Rect2(20, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksbui"]
+atlas = ExtResource("2_rmdrm")
+region = Rect2(40, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcpob"]
+atlas = ExtResource("2_1d6ej")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yofj"]
+atlas = ExtResource("4_j2gub")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo4cy"]
+atlas = ExtResource("4_j2gub")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhpwr"]
+atlas = ExtResource("4_j2gub")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig74t"]
+atlas = ExtResource("4_j2gub")
+region = Rect2(0, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fbxe"]
+atlas = ExtResource("4_j2gub")
+region = Rect2(20, 20, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uccxx"]
+animations = [{
+"frames": [{
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_5lcbe")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_vgvrk")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_0nxwr")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_iruw4")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_8hfvf")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_ksbui")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcpob")
+}],
+"loop": true,
+"name": &"idle_empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yofj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo4cy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhpwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig74t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fbxe")
+}],
+"loop": true,
+"name": &"idle_full",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2gub"]
 
@@ -12,8 +116,10 @@ size = Vector2(16, 10)
 [node name="RespawnStation" type="StaticBody2D"]
 script = ExtResource("1_wawvr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_1d6ej")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uccxx")
+animation = &"idle_full"
+autoplay = "idle_empty"
 
 [node name="Interactable" parent="." instance=ExtResource("3_rmdrm")]
 

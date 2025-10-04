@@ -33,9 +33,10 @@ layout_mode = 2
 texture = ExtResource("2_7ihmi")
 
 [node name="SpiritManaBar" type="TextureProgressBar" parent="."]
+clip_contents = true
 layout_mode = 0
 offset_top = 23.0
-offset_right = 22.0
+offset_right = 48.0
 offset_bottom = 61.0
 value = 100.0
 fill_mode = 3

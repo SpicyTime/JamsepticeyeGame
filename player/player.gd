@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
-var player_burial_site: Texture2D = preload("res://player/textures/BurialSite.png")  
-
+var player_dead_body: Texture2D = preload("res://player/textures/DeadBodySprite.png")  
+var is_dying: bool = false
 var active_state: Node = null
 var input_vector: Vector2 = Vector2.ZERO
 var facing_vector: Vector2 = Vector2(1, -1)
@@ -43,6 +43,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_animations() -> void:
+	if is_dying:
+		return
 	# Only changes the facing direction if the input vector has changed and is not (0, 0)
 	if facing_vector != input_vector and input_vector != Vector2.ZERO:
 		facing_vector = input_vector
@@ -100,7 +102,11 @@ func resurrect() -> void:
 
 
 func die() -> void:
-	print("Dead")
+	is_dying = true
+	$AnimatedSprite2D.play("death")
+	await $AnimatedSprite2D.animation_finished
+	SignalManager.swapped_live_mode.emit(false)
+	is_dying = false
 	active_state = $DeadState
 	current_mana = max_mana
 	mana_drain_timer.start()
@@ -121,14 +127,14 @@ func swap_living_status(living: bool) -> void:
 		resurrect()
 		set_collision_mask_value(2, false)
 		set_collision_mask_value(1, true)
+		SignalManager.swapped_live_mode.emit(true)
 		
-	SignalManager.swapped_live_mode.emit(living)
 
 
 func spawn_body() -> void: 
 	var dead_body_sprite: Sprite2D = Sprite2D.new()
 	# Sets up the sprite
-	dead_body_sprite.texture = player_burial_site
+	dead_body_sprite.texture = player_dead_body
 	dead_body_sprite.position = position
 	body_position = position
 	dead_body_sprite.name = "DeadBodySprite"
