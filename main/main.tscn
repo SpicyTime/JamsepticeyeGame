@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c22a4qkxl41e4"]
+[gd_scene load_steps=7 format=3 uid="uid://c22a4qkxl41e4"]
 
 [ext_resource type="PackedScene" uid="uid://btd7tfi2uo2wb" path="res://game/game.tscn" id="1_53q0u"]
 [ext_resource type="Script" uid="uid://bxictdefuirkq" path="res://main/main.gd" id="1_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://cvgt6m3tjswig" path="res://ui/hud.tscn" id="2_pjrb6"]
+[ext_resource type="PackedScene" uid="uid://dfbbnefmo6thr" path="res://ui/caught_overlay.tscn" id="4_c651c"]
+[ext_resource type="PackedScene" uid="uid://c68egq5ttx4e4" path="res://ui/tutorial_overlay.tscn" id="4_kfbq2"]
+[ext_resource type="PackedScene" uid="uid://5bgvreglbwh4" path="res://ui/dead_overlay.tscn" id="5_3wy1v"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_xwkvk")
@@ -28,8 +31,23 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="TutorialOverlay" parent="UIManager/Overlays" instance=ExtResource("4_kfbq2")]
+visible = false
+layout_mode = 1
+
+[node name="CaughtOverlay" parent="UIManager/Overlays" instance=ExtResource("4_c651c")]
+visible = false
+layout_mode = 1
+
+[node name="DeadOverlay" parent="UIManager/Overlays" instance=ExtResource("5_3wy1v")]
+visible = false
+layout_mode = 1
+
 [node name="Menus" type="Control" parent="UIManager"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

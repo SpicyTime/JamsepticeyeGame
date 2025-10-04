@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsqoemmuqwyde"
-path="res://.godot/imported/DoorOpen.png-0f029cae123cceb57bc131a535063a91.ctex"
+uid="uid://dnk7j2n1ph1p7"
+path="res://.godot/imported/SleepingGuard.png-2b2edc4661802983dc15c5389599f8d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level_system/textures/DoorOpen.png"
-dest_files=["res://.godot/imported/DoorOpen.png-0f029cae123cceb57bc131a535063a91.ctex"]
+source_file="res://ui/textures/SleepingGuard.png"
+dest_files=["res://.godot/imported/SleepingGuard.png-2b2edc4661802983dc15c5389599f8d7.ctex"]
 
 [params]
 

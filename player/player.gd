@@ -2,9 +2,10 @@ extends CharacterBody2D
 class_name Player
 var player_dead_body: Texture2D = preload("res://player/textures/DeadBodySprite.png")  
 var is_dying: bool = false
+var is_resurrecting: bool = false
 var active_state: Node = null
 var input_vector: Vector2 = Vector2.ZERO
-var facing_vector: Vector2 = Vector2(1, -1)
+var facing_vector: Vector2 = Vector2(0, 1)
 var movement_vector: Vector2 = Vector2.ZERO
 var resurrection_count: int = 0
 var max_resurrection_count: int = 3
@@ -14,6 +15,7 @@ var mana_drain: float = 0.01
 var body_position: Vector2 = Vector2.ZERO
 var has_key: bool = false
 @onready var mana_drain_timer: Timer = $ManaDrainTimer
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	active_state = $LivingState
@@ -37,13 +39,15 @@ func _physics_process(delta: float) -> void:
 		velocity = lerp(velocity, input_vector.normalized() * active_state.MAX_SPEED, delta * active_state.ACCELERATION)
 	else:
 		velocity = lerp(velocity, input_vector.normalized() * active_state.MAX_SPEED, delta * active_state.FRICTION)
-	
+	if is_resurrecting or is_dying:
+		velocity = Vector2.ZERO
+		move_and_slide()
 	_handle_animations()
 	move_and_slide()
 
 
 func _handle_animations() -> void:
-	if is_dying:
+	if is_dying or is_resurrecting:
 		return
 	# Only changes the facing direction if the input vector has changed and is not (0, 0)
 	if facing_vector != input_vector and input_vector != Vector2.ZERO:
@@ -73,10 +77,10 @@ func _handle_animations() -> void:
 		animation_path = animation_path.substr(0, animation_path.length() - 1)
 	# Flipping sprite
 	if facing_vector.x == -1:
-		$AnimatedSprite2D.flip_h = false
+		animated_sprite.flip_h = false
 	elif facing_vector.x == 1:
-		$AnimatedSprite2D.flip_h = true
-	$AnimatedSprite2D.play(animation_path)
+		animated_sprite.flip_h = true
+	animated_sprite.play(animation_path)
 
 
 func is_alive() -> bool:
@@ -89,7 +93,10 @@ func consume_mana(amount: int):
 
 
 func resurrect() -> void:
-	print("Resurrecting")
+	is_resurrecting = true
+	animated_sprite.play("respawn")
+	await animated_sprite.animation_finished
+	is_resurrecting = false
 	active_state = $LivingState
 	resurrection_count += 1
 	mana_drain_timer.stop()
@@ -103,17 +110,19 @@ func resurrect() -> void:
 
 func die() -> void:
 	is_dying = true
-	$AnimatedSprite2D.play("death")
-	await $AnimatedSprite2D.animation_finished
+	animated_sprite.play("death")
+	await animated_sprite.animation_finished
 	SignalManager.swapped_live_mode.emit(false)
 	is_dying = false
 	active_state = $DeadState
 	current_mana = max_mana
 	mana_drain_timer.start()
-	#spawn_body()
+	spawn_body()
 	if resurrection_count == max_resurrection_count:
+		await get_tree().create_timer(0.2).timeout
 		SignalManager.player_fully_dead.emit()
-		get_tree().call_deferred("reload_current_scene")
+		UiManager.show_overlay("DeadOverlay")
+		get_tree().paused = true
 
 
 func swap_living_status(living: bool) -> void:
@@ -138,18 +147,26 @@ func spawn_body() -> void:
 	dead_body_sprite.position = position
 	body_position = position
 	dead_body_sprite.name = "DeadBodySprite"
-	dead_body_sprite.z_index = 5
+	dead_body_sprite.z_index = 0
+	if sign(facing_vector.x) == 1:
+		dead_body_sprite.flip_h = true
 	# Adds to tree
 	var main_node = get_tree().root.get_node("Main")
-	main_node.get_node("Game").add_child(dead_body_sprite)
+	main_node.get_node("Game").get_node("LevelManager").current_level.add_child(dead_body_sprite)
 
 
 func _on_mana_drain_timer_timeout() -> void:
 	var passive_mana_removal: int =  int(max_mana * mana_drain)
 	consume_mana(passive_mana_removal)
 	if current_mana <= 1:
-		SignalManager.player_fully_dead.emit()
+		UiManager.show_overlay("DeadOverlay")
+		get_tree().paused = true
 
 
 func _on_invincibility_timer_timeout() -> void:
 	$Hurtbox.set_collision_mask_value(2, true)
+
+func reset() -> void:
+	current_mana = max_mana
+	SignalManager.player_mana_changed.emit(max_mana)
+	resurrection_count = max_resurrection_count

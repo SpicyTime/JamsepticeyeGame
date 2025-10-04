@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnkbcucxt5u1d"]
+
+[ext_resource type="Script" uid="uid://bx03crcuyla2c" path="res://level_system/spirit_barrier.gd" id="1_1jucj"]
+[ext_resource type="Texture2D" uid="uid://b4w4v3e2d7h4o" path="res://game/SpiritBarrier.png" id="2_wdy4y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e17ub"]
+size = Vector2(20, 17)
+
+[node name="SpiritBarrier" type="StaticBody2D"]
+z_index = 6
+collision_layer = 2
+script = ExtResource("1_1jucj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_e17ub")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wdy4y")

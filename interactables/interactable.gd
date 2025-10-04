@@ -1,8 +1,12 @@
 extends Node
 class_name Interactable
 var interactable_area: Area2D = null
+
 func _ready() -> void:
 	SignalManager.interacted.connect(_on_interact)
+	SignalManager.alarm_triggered.connect(func():
+		get_child(0).get_child(0).disabled = true
+		)
 	interactable_area = get_child(0)
 	interactable_area.connect("body_entered", _on_body_entered)
 	interactable_area.connect("body_exited", _on_body_exited)

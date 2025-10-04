@@ -23,7 +23,6 @@ func set_up_ui(canvas_layer: CanvasLayer) -> void:
 	# Sets up overlays
 	for overlay in overlays.get_children():
 		ui_overlays.set(overlay.name, overlay)
-		print(overlay.name)
 	show_overlay("Hud")
 
 
@@ -39,8 +38,9 @@ func hide_overlay(overlay_key: String) -> void:
 	if not ui_overlays.has(overlay_key):
 		push_error("Failed to hide overlay. Overlay %s does not exist" % overlay_key)
 	var overlay: Control = ui_overlays[overlay_key]
-	if overlay in ui_overlays:
-		ui_overlays.erase(overlay)
+	if overlay in active_overlays:
+		active_overlays.erase(overlay)
+		overlay.visible = false
 
 
 func swap_menu(menu_key: String) -> void:

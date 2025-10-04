@@ -11,4 +11,6 @@ signal mana_consumed
 signal level_complete
 signal alarm_item_broken(value: int)
 signal alarm_triggered
-signal soul_battery_filled
+signal respawn_station_filled
+signal level_restart
+signal game_reset

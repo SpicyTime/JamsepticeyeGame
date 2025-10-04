@@ -133,6 +133,3 @@ shape = SubResource("RectangleShape2D_j2gub")
 visible = false
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wawvr")
-
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(0, 9)

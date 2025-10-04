@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceggcl7tllqw3"]
+
+[ext_resource type="Script" uid="uid://daa0gmehp8eqm" path="res://ui/pause_overlay.gd" id="1_tg18y"]
+
+[node name="PauseOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tg18y")
+
+[node name="PauseLabelBox" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_left = -28.0
+offset_top = -82.0
+offset_right = 29.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="PauseLabelBox"]
+layout_mode = 2
+text = "Paused"
+
+[node name="MainBox" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -51.0
+offset_right = 82.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeBox" type="VBoxContainer" parent="MainBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MasterVolumeLabel" type="Label" parent="MainBox/VolumeBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MainBox/VolumeBox"]
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="MainBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Resume" type="Button" parent="MainBox/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Resume"
+
+[node name="Restart" type="Button" parent="MainBox/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Restart"
+
+[node name="Quit" type="Button" parent="MainBox/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Quit"
+
+[connection signal="pressed" from="MainBox/Buttons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MainBox/Buttons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MainBox/Buttons/Quit" to="." method="_on_quit_pressed"]

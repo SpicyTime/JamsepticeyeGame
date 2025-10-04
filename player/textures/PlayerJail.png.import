@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r01cmsevngps"
-path="res://.godot/imported/Key.png-3d07eaa7dfbf3566d540b302109521d2.ctex"
+uid="uid://b2tnqp50onf85"
+path="res://.godot/imported/PlayerJail.png-146e1b1337a38cf52de0959d64ea440b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/Key.png"
-dest_files=["res://.godot/imported/Key.png-3d07eaa7dfbf3566d540b302109521d2.ctex"]
+source_file="res://player/textures/PlayerJail.png"
+dest_files=["res://.godot/imported/PlayerJail.png-146e1b1337a38cf52de0959d64ea440b.ctex"]
 
 [params]
 

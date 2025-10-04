@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://5bgvreglbwh4"]
+
+[ext_resource type="Script" uid="uid://bywkhdc76py5w" path="res://ui/dead_overlay.gd" id="1_4qs2n"]
+[ext_resource type="Texture2D" uid="uid://c1cle7gkqrm47" path="res://player/textures/BurialSite.png" id="2_4qs2n"]
+[ext_resource type="FontFile" uid="uid://clmssgo4o3a8n" path="res://Kubasta.ttf" id="3_vy6ao"]
+
+[node name="DeadOverlay" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4qs2n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -23.5
+offset_right = 32.5
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="DeadLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_vy6ao")
+text = "Enjoy Your Eternal Rest"
+
+[node name="PlayerIcon" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("2_4qs2n")
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("3_vy6ao")
+text = "Restart"
+
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

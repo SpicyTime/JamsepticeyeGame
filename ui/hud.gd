@@ -10,7 +10,14 @@ var frame_duration: float = 0.6 # seconds per frame (10 fps)
 @onready var resurrection_stone_2: TextureRect = $Resurrections/ResurrectionStone2
 @onready var resurrection_stone_3: TextureRect = $Resurrections/ResurrectionStone3
 @onready var spirit_mana_bar: TextureProgressBar = $SpiritManaBar
-@onready var security_awareness_label: Label = $SecurityAwarenessLabel
+@onready var security_awareness_label: Label = $HBoxContainer/SecurityAwarenessLabel
+@onready var guard_icon: TextureRect = $HBoxContainer/GuardIcon
+
+const ALERT_GUARD = preload("uid://xep22narguod")
+const AWAKE_GUARD = preload("uid://cmvttuc0ebjkm")
+const HALF_ALERT_GUARD = preload("uid://covat0umt0pss")
+const HALF_ASLEEP_GUARD = preload("uid://rq4ueqg4x8jg")
+const SLEEPING_GUARD = preload("uid://dnk7j2n1ph1p7")
 
 func _ready() -> void:
 	resurrection_stones = [resurrect_stone_1, resurrection_stone_2, resurrection_stone_3]
@@ -23,26 +30,49 @@ func _ready() -> void:
 	SignalManager.player_mana_changed.connect(func(value: float):
 		spirit_mana_bar.value = value
 		)
-	SignalManager.alarm_item_broken.connect(func(alarm_increase: int):
+	
+	SignalManager.alarm_item_broken.connect(_on_alarm_item_broken)
+	$RemoveAwarenessTimer.timeout.connect(func():
 		var security_awareness: int = int(security_awareness_label.text)
-		security_awareness += alarm_increase
-		security_awareness_label.text = str(security_awareness) + "%"
-		if security_awareness > 25:
-			security_awareness_label.add_theme_color_override("font_color", Color(1, 1, 0, 1))
-		if security_awareness > 50:
-			security_awareness_label.add_theme_color_override("font_color", Color(1, 0, 0, 1))
-		if security_awareness > 75:
-			security_awareness_label.add_theme_color_override("font_color", Color(0.6, 0, 0, 1))
+		security_awareness -= 1
+		if security_awareness > 0:
+			security_awareness_label.text = str(security_awareness) + "%"
+		)
+	SignalManager.game_reset.connect(func ():
+		UiManager.show_overlay("Hud")
+		
+		update_security_awareness(0)
 		)
 	set_up_animated_mana_bar()
 	animate_progress_bar(0)
-
+	
 func _process(delta: float) -> void:
 	frame_time += delta
 	if frame_time >= frame_duration:
 		frame_time = 0.0
 		frame_index = (frame_index + 1) % progress_frames.size()
 		spirit_mana_bar.texture_progress = progress_frames[frame_index]
+
+
+func update_security_awareness(security_awareness: int) -> void:
+	security_awareness_label.text = str(security_awareness) + "%"
+	if security_awareness >= 100:
+		guard_icon.texture = ALERT_GUARD
+		SignalManager.alarm_triggered.emit()
+		UiManager.hide_overlay("Hud")
+		
+	elif security_awareness > 75:
+		guard_icon.texture = HALF_ALERT_GUARD
+		security_awareness_label.add_theme_color_override("font_color", Color(0.6, 0, 0, 1))
+	elif security_awareness > 50:
+		guard_icon.texture = AWAKE_GUARD
+		security_awareness_label.add_theme_color_override("font_color", Color(1, 0, 0, 1))
+	elif security_awareness > 25:
+		guard_icon.texture = HALF_ASLEEP_GUARD
+		security_awareness_label.add_theme_color_override("font_color", Color(1, 1, 0, 1))
+	else:
+		guard_icon.texture = SLEEPING_GUARD
+		security_awareness_label.add_theme_color_override("font_color", Color(0, 1, 0, 1))
 
 func set_up_animated_mana_bar() -> void:
 	# Keep original texture
@@ -60,4 +90,17 @@ func animate_progress_bar(frame: int) -> void:
 
 	
 func reset() -> void:
-	pass
+	for resurrection_stone in resurrection_stones:
+		resurrection_stone.visible = true
+	current_stone_index = 0
+	update_security_awareness(0)
+	UiManager.show_overlay(self.name)
+
+
+func _on_alarm_item_broken(alarm_increase: int) -> void:
+	
+		var security_awareness: int = int(security_awareness_label.text)
+		security_awareness += alarm_increase
+		update_security_awareness(security_awareness)
+		
+		

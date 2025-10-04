@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i2nuniv4q3u0"
-path="res://.godot/imported/AlarmProgresss.png-5dbaccbe6ad36d78bcc2b4f4d8c8e326.ctex"
+uid="uid://rq4ueqg4x8jg"
+path="res://.godot/imported/HalfAsleepGuard.png-8d5cbeb49e670250f89cbc01488d932f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/AlarmProgresss.png"
-dest_files=["res://.godot/imported/AlarmProgresss.png-5dbaccbe6ad36d78bcc2b4f4d8c8e326.ctex"]
+source_file="res://ui/textures/HalfAsleepGuard.png"
+dest_files=["res://.godot/imported/HalfAsleepGuard.png-8d5cbeb49e670250f89cbc01488d932f.ctex"]
 
 [params]
 

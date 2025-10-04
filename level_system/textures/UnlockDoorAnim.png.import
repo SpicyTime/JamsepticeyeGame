@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d32n568avlrmn"
-path="res://.godot/imported/ProgressHolderHor.png-a791d1a66b939fe8d8ae257d6f7ce1f3.ctex"
+uid="uid://de2mbep0q5myx"
+path="res://.godot/imported/UnlockDoorAnim.png-5c756bd931e058a2d6810d305ebadf9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/ProgressHolderHor.png"
-dest_files=["res://.godot/imported/ProgressHolderHor.png-a791d1a66b939fe8d8ae257d6f7ce1f3.ctex"]
+source_file="res://level_system/textures/UnlockDoorAnim.png"
+dest_files=["res://.godot/imported/UnlockDoorAnim.png-5c756bd931e058a2d6810d305ebadf9d.ctex"]
 
 [params]
 

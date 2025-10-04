@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvbvhue2xvy1t"]
+[gd_scene load_steps=16 format=3 uid="uid://bvbvhue2xvy1t"]
 
 [ext_resource type="Texture2D" uid="uid://bo5es1vwialhq" path="res://level_system/textures/FloorTiles.png" id="1_1d1fa"]
 [ext_resource type="Script" uid="uid://c2wysfqfsuarw" path="res://level_system/level.gd" id="1_4sx5k"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://tyykhl5jkmp4" path="res://level_system/exit_door.tscn" id="3_1d1fa"]
 [ext_resource type="Texture2D" uid="uid://ddsv4vcvjumry" path="res://level_system/textures/WallTile.png" id="3_cn4wh"]
 [ext_resource type="PackedScene" uid="uid://dnby6yl4lssjn" path="res://level_system/respawn_station.tscn" id="6_inehf"]
+[ext_resource type="Shader" uid="uid://5wmk0l7wf2m6" path="res://game/alarm_triggered.gdshader" id="7_reay7"]
+[ext_resource type="Texture2D" uid="uid://diesjuq6succ8" path="res://ui/textures/Progress.png" id="9_bf3om"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1d1fa"]
 texture = ExtResource("1_1d1fa")
@@ -22,40 +24,59 @@ sources/1 = SubResource("TileSetAtlasSource_1d1fa")
 texture = ExtResource("3_cn4wh")
 texture_region_size = Vector2i(20, 20)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 3.8669624, -7.733925, 3.8669624, -7.5540695, 10, -10, 10)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 3.1475277, -8.003714, 3.1475277, -8.003714, 10, -10, 10)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, -10, -10, -10, -10, 3.8669624, 10, 3.8669624)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 3.1475277, -10, 3.1475282)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, -10, -10, -10, -10, 3.8669624, 7.733925, 3.8669624, 7.5540695, 10, 10, 10)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, -10, -10, -10, -10, 3.1475277, 8.003714, 3.1475277, 8.003714, 10, 10, 10)
 0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.003712, -10, -10, -10, -10, 10, -8.183571, 10)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, -8.0037155, -10, -8.003714, 10, -10, 10)
 2:1/0 = 0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8.003712, -10, 10, -10, 10, 10, 8.183571, 10)
-1:2/0 = 0
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, 8.003712, 10, 10, -10, 10, -10, 8.183571)
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, -10, 8.0037155, -10, 8.003714, 10, 10, 10)
 0:2/0 = 0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, 8.003712, 10, 10, -10, 10, -10, -10, -8.093643, -10, -7.733925, 8.003714)
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, 10, -10, -10, -7.913786, -10, -8.093643, 8.003714, 10, 8.003714, 10, 10)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, 10, -10, 8.0037155, 10, 8.003714, 10, 10)
 2:2/0 = 0
-2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, 8.003712, -10, 10, 10, 10, 10, -10, 8.093643, -10, 7.733925, 8.003714)
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, 10, 10, -10, 7.913786, -10, 8.093643, 8.003714, -10, 8.003714, -10, 10)
 
-[sub_resource type="TileSet" id="TileSet_reay7"]
+[sub_resource type="TileSet" id="TileSet_8svdi"]
+tile_size = Vector2i(20, 20)
+physics_layer_0/collision_layer = 7
+physics_layer_0/collision_mask = 7
+sources/1 = SubResource("TileSetAtlasSource_inehf")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8svdi"]
+texture = ExtResource("3_cn4wh")
+texture_region_size = Vector2i(20, 20)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 3.9828863, -7.86823, 4.0102587, -8.003714, 10, -10, 10)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -10, 10, -10, 10, 3.9828863, -10, 4.010258)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, -10, -10, -10, -10, 3.9828863, 7.86823, 4.0102587, 8.003714, 10, 10, 10)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, 10, -10, -10, -8.003714, -10, -8, 10)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, 10, 10, -10, 8.003714, -10, 8, 10)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, 10, -10, -10, -8.003714, -10, -8, 8, 10, 8.003714, 10, 10)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, 10, 10, 10, 10, 8.003714, -10, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(10, 10, 10, -10, 8.003714, -10, 8, 8, -10, 8.003714, -10, 10)
+
+[sub_resource type="TileSet" id="TileSet_bf3om"]
 tile_size = Vector2i(20, 20)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_inehf")
+sources/0 = SubResource("TileSetAtlasSource_8svdi")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn4wh"]
-size = Vector2(320, 5)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8svdi"]
+shader = ExtResource("7_reay7")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/alarm_strength = 0.6000000285
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_inehf"]
-size = Vector2(320, 5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_reay7"]
-size = Vector2(5, 180)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8svdi"]
-size = Vector2(5, 180)
-
-[node name="BaseLevel" type="Node2D"]
+[node name="BaseLevel" type="Node2D" groups=["Resetables"]]
 script = ExtResource("1_4sx5k")
 
 [node name="Decoration" type="TileMapLayer" parent="."]
@@ -64,9 +85,12 @@ script = ExtResource("1_4sx5k")
 position = Vector2(0, -10)
 tile_set = SubResource("TileSet_cn4wh")
 
-[node name="Walls" type="TileMapLayer" parent="."]
+[node name="Border" type="TileMapLayer" parent="."]
 position = Vector2(0, -10)
-tile_set = SubResource("TileSet_reay7")
+tile_set = SubResource("TileSet_8svdi")
+
+[node name="Walls" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_bf3om")
 
 [node name="Traps" type="Node" parent="."]
 
@@ -75,37 +99,15 @@ position = Vector2(-2, -78)
 
 [node name="Player" parent="." instance=ExtResource("1_6h4uu")]
 
-[node name="Boundaries" type="Node" parent="."]
-
-[node name="TopBoundary" type="StaticBody2D" parent="Boundaries"]
-collision_layer = 255
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopBoundary"]
-position = Vector2(7, -91)
-shape = SubResource("RectangleShape2D_cn4wh")
-
-[node name="BottomBoundary" type="StaticBody2D" parent="Boundaries"]
-collision_layer = 255
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BottomBoundary"]
-position = Vector2(7, 86)
-shape = SubResource("RectangleShape2D_inehf")
-
-[node name="LeftBoundary" type="StaticBody2D" parent="Boundaries"]
-collision_layer = 255
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftBoundary"]
-position = Vector2(164, -3)
-shape = SubResource("RectangleShape2D_reay7")
-
-[node name="RightBoundary" type="StaticBody2D" parent="Boundaries"]
-collision_layer = 255
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightBoundary"]
-position = Vector2(-158, 0)
-shape = SubResource("RectangleShape2D_8svdi")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="RespawnStation" parent="." instance=ExtResource("6_inehf")]
 position = Vector2(-94, -30)
+
+[node name="Marker2D" type="Marker2D" parent="RespawnStation"]
+
+[node name="AlarmShader" type="Sprite2D" parent="."]
+visible = false
+z_index = 9
+material = SubResource("ShaderMaterial_8svdi")
+position = Vector2(14.5, -15.500004)
+scale = Vector2(6.6875, 6.2000003)
+texture = ExtResource("9_bf3om")
