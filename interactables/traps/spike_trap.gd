@@ -1,6 +1,6 @@
 extends Node2D
-var reveal_mana_cost: int = 15
-var disable_mana_cost: int = 20
+var reveal_mana_cost: int = 10
+var disable_mana_cost: int = 15
 var disabled: bool = false
 var revealed: bool = false
 const SPIKE_DISABLED = preload("res://interactables/traps/spike_disabled.mp3")

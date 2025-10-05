@@ -126,6 +126,7 @@ func resurrect() -> void:
 	$Hurtbox.set_collision_mask_value(2, false)
 	$InvincibilityTimer.start()
 	SignalManager.player_resurrect.emit()
+	$Hurtbox/CollisionShape2D.disabled = false
 
 
 func die() -> void:
@@ -135,8 +136,9 @@ func die() -> void:
 	SignalManager.swapped_live_mode.emit(false)
 	is_dying = false
 	active_state = $DeadState
-	current_mana += max_mana * 0.3
-	print(max_mana * 0.1)
+	var mana_increase: float = 0.5
+	current_mana += max_mana * mana_increase
+	$Hurtbox/CollisionShape2D.disabled = true
 	if current_mana > max_mana:
 		current_mana = max_mana
 	GameManager.current_player_mana = current_mana

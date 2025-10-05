@@ -6,7 +6,8 @@ var levels: Array[PackedScene] = [
 	preload("res://level_system/levels/level_1.tscn"),
 	preload("res://level_system/levels/level_2.tscn"),
 	preload("res://level_system/levels/level_3.tscn"),
-	preload("res://level_system/levels/level_4.tscn")
+	preload("res://level_system/levels/level_4.tscn"),
+	preload("res://level_system/levels/level_5.tscn"),
 	
 ]
 func _unhandled_input(_event: InputEvent) -> void:
@@ -30,7 +31,7 @@ func _ready() -> void:
 		UiManager.swap_menu("None")
 		get_tree().paused = false
 		)
-	call_deferred("enter_level", 3)
+	call_deferred("enter_level", 4)
 
 func reset_level() -> void:
 	var path: String = current_level.scene_file_path
