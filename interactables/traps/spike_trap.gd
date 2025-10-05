@@ -3,6 +3,9 @@ var reveal_mana_cost: int = 15
 var disable_mana_cost: int = 20
 var disabled: bool = false
 var revealed: bool = false
+const SPIKE_DISABLED = preload("res://interactables/traps/spike_disabled.mp3")
+const SPIKE_ACTIVATE = preload("res://interactables/traps/unsheath_sword-6113.mp3")
+
 func _ready() -> void:
 	SignalManager.swapped_live_mode.connect(func(alive):
 		if alive and not revealed:
@@ -12,7 +15,8 @@ func _ready() -> void:
 			visible = true
 			modulate.a *= 0.5
 		)
-
+	$Activated.stream = SPIKE_ACTIVATE
+	$Disabled.stream = SPIKE_DISABLED
 
 func handle_interact(player: Player) -> void:
 	if not revealed:
@@ -27,10 +31,12 @@ func handle_interact(player: Player) -> void:
 		player.consume_mana(disable_mana_cost)
 		disabled = true
 		$AnimatedSprite2D.play("disabled")
+		$Disabled.play()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is HurtBox and area.get_parent().is_alive():
 		$AnimatedSprite2D.play("popup")
+		$Activated.play()
 		visible = true
 		modulate.a = 255
 		area.get_parent().swap_living_status(false)

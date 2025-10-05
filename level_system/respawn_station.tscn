@@ -60,7 +60,7 @@ animations = [{
 "duration": 0.8,
 "texture": SubResource("AtlasTexture_5lcbe")
 }, {
-"duration": 0.8,
+"duration": 1.2,
 "texture": SubResource("AtlasTexture_vgvrk")
 }, {
 "duration": 2.0,
@@ -118,7 +118,7 @@ script = ExtResource("1_wawvr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uccxx")
-animation = &"idle_full"
+animation = &"activate"
 autoplay = "idle_empty"
 
 [node name="Interactable" parent="." instance=ExtResource("3_rmdrm")]
@@ -133,3 +133,11 @@ shape = SubResource("RectangleShape2D_j2gub")
 visible = false
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wawvr")
+
+[node name="MechanicalHum" type="AudioStreamPlayer2D" parent="."]
+volume_db = -4.0
+
+[node name="Click" type="AudioStreamPlayer2D" parent="."]
+volume_db = -2.0
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_frame_changed"]

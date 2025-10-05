@@ -30,7 +30,7 @@ func _ready() -> void:
 		UiManager.swap_menu("None")
 		get_tree().paused = false
 		)
-	call_deferred("enter_level", 0)
+	call_deferred("enter_level", 3)
 
 func reset_level() -> void:
 	var path: String = current_level.scene_file_path

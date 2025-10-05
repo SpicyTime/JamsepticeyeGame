@@ -333,7 +333,7 @@ animations = [{
 "duration": 1.15,
 "texture": SubResource("AtlasTexture_b2j0d")
 }, {
-"duration": 1.5,
+"duration": 1.75,
 "texture": SubResource("AtlasTexture_7l6ig")
 }, {
 "duration": 1.0,
@@ -603,7 +603,7 @@ script = ExtResource("1_rkbax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_or4qq")
-animation = &"respawn"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -631,5 +631,22 @@ MAX_SPEED = 75.0
 FRICTION = 3.0
 ACCELERATION = 10.0
 
+[node name="FootSteps" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+
+[node name="BreathIntake" type="AudioStreamPlayer2D" parent="."]
+pitch_scale = 3.0
+
+[node name="KneesHittingFloor" type="AudioStreamPlayer2D" parent="."]
+volume_db = -12.0
+
+[node name="BodyHittingFloor" type="AudioStreamPlayer2D" parent="."]
+volume_db = -4.0
+
+[node name="GhostMoving" type="AudioStreamPlayer2D" parent="."]
+volume_db = -15.0
+pitch_scale = 4.0
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_frame_changed"]
 [connection signal="timeout" from="ManaDrainTimer" to="." method="_on_mana_drain_timer_timeout"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

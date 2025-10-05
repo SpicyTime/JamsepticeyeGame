@@ -16,11 +16,20 @@ var body_position: Vector2 = Vector2.ZERO
 var has_key: bool = false
 @onready var mana_drain_timer: Timer = $ManaDrainTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+const CONCRETE_FOOTSTEPS = preload("res://player/concrete-footsteps-6752.mp3")
+const LOUD_THUD = preload("res://player/loud-thud-45719.mp3")
+const SHARP_INTAKE = preload("res://player/sharp-intake.mp3")
+const SOFT_WIND_BLOWING = preload("res://player/swoosh-07-351043.mp3")
+
 
 func _ready() -> void:
 	active_state = $LivingState
-	print(current_mana)
 	SignalManager.player_mana_changed.emit(max_mana)
+	$FootSteps.stream = CONCRETE_FOOTSTEPS
+	$BreathIntake.stream = SHARP_INTAKE
+	$KneesHittingFloor.stream = LOUD_THUD
+	$BodyHittingFloor.stream = LOUD_THUD
+	$GhostMoving.stream = SOFT_WIND_BLOWING
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -29,8 +38,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				swap_living_status(false)
 		if Input.is_action_just_pressed("interact"):
 			SignalManager.interacted.emit(get_tree().get_first_node_in_group("Current Interactables"), self)
-		
-			
+
 
 func _physics_process(delta: float) -> void:
 	# Handles movement input
@@ -38,7 +46,17 @@ func _physics_process(delta: float) -> void:
 	input_vector.y = Input.get_axis("move_up", "move_down")
 	if input_vector != Vector2.ZERO:
 		velocity = lerp(velocity, input_vector.normalized() * active_state.MAX_SPEED, delta * active_state.ACCELERATION)
+		if not $FootSteps.playing and is_alive() and not is_dying:
+			$FootSteps.play()
+		elif not $GhostMoving.playing and not is_alive() and not is_resurrecting:
+			$GhostMoving.pitch_scale = 1
+			$GhostMoving.play(0.1)
 	else:
+		if is_alive() or $FootSteps.playing:
+			$FootSteps.stop()
+		else:
+			$GhostMoving.pitch_scale = 0.5
+			$GhostMoving.stop()
 		velocity = lerp(velocity, input_vector.normalized() * active_state.MAX_SPEED, delta * active_state.FRICTION)
 	if is_resurrecting or is_dying:
 		velocity = Vector2.ZERO
@@ -46,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	_handle_animations()
 	move_and_slide()
 
-
+	
 func _handle_animations() -> void:
 	if is_dying or is_resurrecting:
 		return
@@ -177,3 +195,15 @@ func reset() -> void:
 	current_mana = max_mana
 	SignalManager.player_mana_changed.emit(max_mana)
 	resurrection_count = max_resurrection_count
+
+
+func _on_animated_sprite_frame_changed() -> void:
+	if animated_sprite.animation == "death":
+		if animated_sprite.frame == 0:
+			#$BreathIntake.play()
+			pass
+		elif animated_sprite.frame == 2:
+			$KneesHittingFloor.play()
+		elif animated_sprite.frame == 3:
+			$BodyHittingFloor.play()
+			 

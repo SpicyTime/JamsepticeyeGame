@@ -117,3 +117,6 @@ shape = SubResource("RectangleShape2D_uvhdd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/Area2D"]
 position = Vector2(0, 10.5)
 shape = SubResource("RectangleShape2D_qtx7j")
+
+[node name="DoorOpen" type="AudioStreamPlayer2D" parent="."]
+volume_db = -2.0

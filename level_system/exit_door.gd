@@ -4,13 +4,14 @@ extends StaticBody2D
 var soul_batteries_filled: int = 0
 var falling_lock_texture: Texture2D = preload("res://level_system/textures/UnlockedLock.png")
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+const DOOR_OPENING= preload("res://level_system/main-door-opening-closing-38280-[AudioTrimmer.com].mp3")
 
 func _ready() -> void:
 	if requires_key:
 		animated_sprite.play("locked_door")
 	else:
 		animated_sprite.play("reg_door")
-
+	$DoorOpen.stream = DOOR_OPENING
 
 func handle_interact(player: Player) -> void:
 	if not player.is_alive():
@@ -25,9 +26,11 @@ func handle_interact(player: Player) -> void:
 				await animated_sprite.animation_finished
 			
 			animated_sprite.play("door_open")
+			$DoorOpen.play()
 			await animated_sprite.animation_finished
 			SignalManager.level_complete.emit()
 	else:
 		animated_sprite.play("door_open")
+		$DoorOpen.play()
 		await animated_sprite.animation_finished
 		SignalManager.level_complete.emit()
