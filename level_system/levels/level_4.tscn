@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=4 uid="uid://cw2prxpk4igjh"]
+
+[ext_resource type="PackedScene" uid="uid://bvbvhue2xvy1t" path="res://level_system/base_level.tscn" id="1_miv5x"]
+
+[node name="Level4" instance=ExtResource("1_miv5x")]
+
+[node name="Floor" parent="." index="1"]
+tile_map_data = PackedByteArray("AAAAAAIAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAP//AQAAAAAAAAAAAP7/AQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAD///z/AQAAAAAAAAAAAPz/AQAAAAAAAAAAAP3/AQAAAAAAAAD//wAAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAD//wMAAQAAAAAAAAD//wQAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAQAAAAAAAAD/////AQAAAAAAAAABAAEAAQAAAAAAAAA=")
+
+[node name="Spikes" parent="." index="2"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAQD//wAAAAAAAAAAAQA=")
+
+[node name="Border" parent="." index="4"]
+tile_map_data = PackedByteArray("AAD+/wMAAQACAAEAAAD+/wIAAQACAAEAAAD+/wEAAQACAAEAAAD+/wAAAQACAAEAAAD+////AQACAAEAAAD+//7/AQACAAEAAAD+//3/AQACAAEAAAABAAAAAQAAAAIAAAABAP//AQAAAAEAAAABAP7/AQAAAAEAAAABAP3/AQAAAAEAAAABAAIAAQAAAAIAACABAAMAAQAAAAEAAAABAAQAAQAAAAEAAAD//wUAAQABAAIAACAAAAUAAQABAAIAACD+/wQAAQACAAEAAAABAAEAAQACAAEAAAD///z/AQABAAAAAAAAAPz/AQABAAAAAAABAPz/AQAAAAEAAAD+//z/AQACAAEAAAA=")
+
+[node name="ExitDoor" parent="." index="5"]
+position = Vector2(-10, -79)
+
+[node name="Player" parent="." index="6"]
+position = Vector2(0, 53)
+
+[node name="RespawnStation" parent="." index="7"]
+position = Vector2(29, 20)
+
+[node name="Marker2D" parent="RespawnStation" index="3"]
+position = Vector2(-24, 1)

@@ -14,3 +14,4 @@ signal alarm_triggered
 signal respawn_station_filled
 signal level_restart
 signal game_reset
+signal reset_to_first_level

@@ -15,4 +15,5 @@ func handle_interact(player: Player):
 		
 		player.swap_living_status(true)
 		player.position = $Marker2D.global_position
+		SignalManager.alarm_item_broken.emit(20)
 		

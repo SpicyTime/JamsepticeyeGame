@@ -28,7 +28,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_bymr3")
 theme_override_font_sizes/font_size = 8
 text = "WASD to move
-E to Interact
+E to Interact/Disable
 X to Die"
 
 [node name="Label2" type="Label" parent="PanelContainer"]

@@ -31,17 +31,23 @@ func _ready() -> void:
 		spirit_mana_bar.value = value
 		)
 	
-	SignalManager.alarm_item_broken.connect(_on_alarm_item_broken)
+	#SignalManager.alarm_item_broken.connect(_on_alarm_item_broken)
 	$RemoveAwarenessTimer.timeout.connect(func():
 		var security_awareness: int = int(security_awareness_label.text)
 		security_awareness -= 1
 		if security_awareness > 0:
 			security_awareness_label.text = str(security_awareness) + "%"
+			
 		)
 	SignalManager.game_reset.connect(func ():
 		UiManager.show_overlay("Hud")
 		
 		update_security_awareness(0)
+		)
+	SignalManager.level_complete.connect(func():
+		for resurrection_stone in resurrection_stones:
+			resurrection_stone.visible = true
+		current_stone_index = 0
 		)
 	set_up_animated_mana_bar()
 	animate_progress_bar(0)

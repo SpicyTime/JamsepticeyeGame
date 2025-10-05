@@ -593,8 +593,8 @@ radius = 5.0
 height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_boad6"]
-radius = 6.0
-height = 16.0
+radius = 4.0
+height = 10.0
 
 [node name="Player" type="CharacterBody2D" groups=["Resetables"]]
 z_index = 6
@@ -610,8 +610,10 @@ position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_hggc2")
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_qjkh3")]
+collision_layer = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_boad6")
 
 [node name="ManaDrainTimer" type="Timer" parent="."]

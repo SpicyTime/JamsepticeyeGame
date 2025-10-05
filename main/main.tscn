@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c22a4qkxl41e4"]
+[gd_scene load_steps=8 format=3 uid="uid://c22a4qkxl41e4"]
 
 [ext_resource type="PackedScene" uid="uid://btd7tfi2uo2wb" path="res://game/game.tscn" id="1_53q0u"]
 [ext_resource type="Script" uid="uid://bxictdefuirkq" path="res://main/main.gd" id="1_xwkvk"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dfbbnefmo6thr" path="res://ui/caught_overlay.tscn" id="4_c651c"]
 [ext_resource type="PackedScene" uid="uid://c68egq5ttx4e4" path="res://ui/tutorial_overlay.tscn" id="4_kfbq2"]
 [ext_resource type="PackedScene" uid="uid://5bgvreglbwh4" path="res://ui/dead_overlay.tscn" id="5_3wy1v"]
+[ext_resource type="PackedScene" uid="uid://dn8pls6r078k7" path="res://ui/win_screen.tscn" id="7_4dugh"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_xwkvk")
@@ -51,3 +52,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="WinScreen" parent="UIManager/Menus" instance=ExtResource("7_4dugh")]
+layout_mode = 1

@@ -1,11 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgc5nberyiet0"]
+[gd_scene load_steps=13 format=3 uid="uid://dgc5nberyiet0"]
 
 [ext_resource type="Script" uid="uid://fke4nu357gcm" path="res://interactables/traps/spike_trap.gd" id="1_xndjj"]
 [ext_resource type="PackedScene" uid="uid://cj8n6bo6mt1bq" path="res://hithurtsystem/hitbox.tscn" id="2_pyoux"]
 [ext_resource type="Texture2D" uid="uid://iew5mq1teaxi" path="res://interactables/traps/Spikes.png" id="2_xndjj"]
+[ext_resource type="Texture2D" uid="uid://bbvdo5pb5uj6t" path="res://interactables/traps/DisabledSpikeTrap.png" id="3_aj78h"]
 [ext_resource type="PackedScene" uid="uid://drded2eq1e03t" path="res://interactables/interactable.tscn" id="3_xndjj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aj78h"]
+atlas = ExtResource("2_xndjj")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_id7v3"]
+atlas = ExtResource("3_aj78h")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xndjj"]
+atlas = ExtResource("2_xndjj")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga6ch"]
 atlas = ExtResource("2_xndjj")
 region = Rect2(20, 0, 20, 20)
 
@@ -18,17 +31,40 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_id7v3")
+}],
+"loop": true,
+"name": &"disabled",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xndjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ga6ch")
+}],
+"loop": false,
+"name": &"popup",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga6ch"]
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aj78h"]
+size = Vector2(20, 2)
 
 [node name="SpikeTrap" type="Node2D"]
+visible = false
 script = ExtResource("1_xndjj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ga6ch")
+animation = &"popup"
 
 [node name="Interactable" parent="." instance=ExtResource("3_xndjj")]
 
@@ -38,6 +74,9 @@ sprite_frames = SubResource("SpriteFrames_ga6ch")
 shape = SubResource("RectangleShape2D_ga6ch")
 
 [node name="Hitbox" parent="." instance=ExtResource("2_pyoux")]
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_aj78h")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

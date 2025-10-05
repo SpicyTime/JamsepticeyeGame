@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://btd7tfi2uo2wb"]
+[gd_scene load_steps=4 format=3 uid="uid://btd7tfi2uo2wb"]
 
 [ext_resource type="Script" uid="uid://crgr8apny6pud" path="res://game/game.gd" id="1_h7iqs"]
 [ext_resource type="Script" uid="uid://byowiprpyg2si" path="res://game/level_manager.gd" id="1_vasa2"]
+[ext_resource type="AudioStream" uid="uid://c634c1vjwd51e" path="res://meditation-relaxing-music-background-320405.mp3" id="3_h7iqs"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_h7iqs")
@@ -10,3 +11,8 @@ script = ExtResource("1_h7iqs")
 
 [node name="LevelManager" type="Node" parent="." groups=["Resetables"]]
 script = ExtResource("1_vasa2")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_h7iqs")
+volume_db = -20.0
+autoplay = true

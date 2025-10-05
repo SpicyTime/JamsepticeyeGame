@@ -49,6 +49,7 @@ texture_progress = ExtResource("4_en2x2")
 texture_progress_offset = Vector2(3, 2)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_top = 59.0
 offset_right = 40.0
@@ -68,4 +69,5 @@ theme_override_font_sizes/font_size = 8
 text = "0 %"
 
 [node name="RemoveAwarenessTimer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true

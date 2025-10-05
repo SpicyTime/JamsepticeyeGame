@@ -11,7 +11,7 @@ var resurrection_count: int = 0
 var max_resurrection_count: int = 3
 var max_mana: int = 100
 var current_mana: int = max_mana
-var mana_drain: float = 0.01
+var mana_drain: float = 0.03
 var body_position: Vector2 = Vector2.ZERO
 var has_key: bool = false
 @onready var mana_drain_timer: Timer = $ManaDrainTimer
@@ -19,7 +19,8 @@ var has_key: bool = false
 
 func _ready() -> void:
 	active_state = $LivingState
-
+	print(current_mana)
+	SignalManager.player_mana_changed.emit(max_mana)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -100,6 +101,7 @@ func resurrect() -> void:
 	active_state = $LivingState
 	resurrection_count += 1
 	mana_drain_timer.stop()
+	GameManager.current_player_mana = current_mana
 	#position = body_position
 	velocity = Vector2.ZERO  
 	 #Invincibility;
@@ -115,7 +117,12 @@ func die() -> void:
 	SignalManager.swapped_live_mode.emit(false)
 	is_dying = false
 	active_state = $DeadState
-	current_mana = max_mana
+	current_mana += max_mana * 0.3
+	print(max_mana * 0.1)
+	if current_mana > max_mana:
+		current_mana = max_mana
+	GameManager.current_player_mana = current_mana
+	SignalManager.player_mana_changed.emit(current_mana)
 	mana_drain_timer.start()
 	spawn_body()
 	if resurrection_count == max_resurrection_count:

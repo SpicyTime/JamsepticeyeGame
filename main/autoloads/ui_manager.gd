@@ -44,6 +44,10 @@ func hide_overlay(overlay_key: String) -> void:
 
 
 func swap_menu(menu_key: String) -> void:
+	if menu_key == "None":
+		if active_menu:
+			active_menu.visible = false
+		return
 	if not ui_menus.has(menu_key):
 		push_error("Menu %s does not exist")
 	var menu: Control = ui_menus[menu_key]
